@@ -1,9 +1,12 @@
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import CommentForm from "./components/CommentForm";
 import Footer from "./components/Footer";
 import About from "./views/About";
 import CommentList from "./views/CommentList";
 import Login from "./views/Login";
 import UserList from "./views/UserList";
+import Header from "./components/Header";
+import UserDetails from "./views/UserDetails";
 
 const App = () => {
   const users = [
@@ -39,13 +42,17 @@ const App = () => {
 
   return (
     <div>
-      <h1>Comments App</h1>
-      <CommentList comments={comments} />
-      <CommentForm />
-      <UserList users={users} />
-      <About />
-      <Login />
-      <Footer />
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<CommentList comments={comments} />} />
+          <Route path="/users" element={<UserList users={users} />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/users/:id" element={<UserDetails users={users} />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 };
